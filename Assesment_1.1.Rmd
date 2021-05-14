@@ -1,0 +1,40 @@
+---
+title: "Assesment 1.1"
+author: "Yash Mhaske s4614167"
+date: "14/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+#install.packages("tidyverse")
+library(tidyverse)
+fastfood<-read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-04/fastfood_calories.csv")
+```
+
+```{r}
+fastfood%>%head()
+```
+
+```{r}
+#install.packages("janitor")
+library(janitor)
+fastfood<-fastfood%>%
+  clean_names()
+
+fastfood%>%glimpse()
+```
+
+```{r}
+fastfood%>%filter(calories>1000)
+```
+
+```{r}
+dont_eat_this<-fastfood%>%
+  filter(total_fat>=40 & total_carb>=80)
+```
+
+

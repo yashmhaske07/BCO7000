@@ -4,21 +4,30 @@ author: "Yash Mhaske s4614167"
 date: "14/05/2021"
 output: html_document
 ---
+# RMarkDown Editing
+*This is a Rmarkdown document.* 
+*Markdown is a simple formatting syntax for authoring HTML,PDF, and MS Word Documents. For more details on using RMarkdown see* 
+[https://rmarkdown.rstudio.com/lesson-8.html]
+*The documentation on the website is really helpful and covers each and every aspect a new coder programming in R needs.*
+
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Installing packages and assigning variable
 ```{r}
 #install.packages("tidyverse")
 library(tidyverse)
 fastfood<-read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-04/fastfood_calories.csv")
 ```
 
+## Displaying the first 10 records of the data set
 ```{r}
-fastfood%>%head()
+fastfood%>%head(10)
 ```
 
+## Cleaning names with the help of the library janitor
 ```{r}
 #install.packages("janitor")
 library(janitor)
@@ -28,13 +37,16 @@ fastfood<-fastfood%>%
 fastfood%>%glimpse()
 ```
 
+## Food with more than 1000 calories
 ```{r}
 fastfood%>%filter(calories>1000)
 ```
 
+## Food with Total fat more than 40 and Total carb more than 80 
 ```{r}
 dont_eat_this<-fastfood%>%
   filter(total_fat>=40 & total_carb>=80)
+dont_eat_this
 ```
 
 

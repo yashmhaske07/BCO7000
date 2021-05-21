@@ -1,0 +1,82 @@
+---
+title: "Assesment_1.2"
+author: "Yash Mhaske s4614167"
+date: "21/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Data Wrangling Skills
+
+```{r}
+library(tidyverse)
+fastfood<-read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-04/fastfood_calories.csv")
+fastfood%>%head(10)
+```
+
+
+##Types of variables in the dataset using skimr package
+```{r}
+#install.packages("skimr")
+library(skimr)
+skim(fastfood)
+```
+
+##The number of observations per each restaurant
+```{r}
+fastfood%>%count(restaurant)
+```
+
+##Average number of calories per restaurant 
+```{r}
+fastfood%>%
+  group_by(restaurant)%>%
+  mutate(avg_calories=mean(calories))%>%
+  select(restaurant,avg_calories)%>%
+  ungroup()
+```
+
+##Assigning a variable average_calories
+```{r}
+average_calories<-fastfood%>%
+  group_by(restaurant)%>%
+  mutate(avg_calories=mean(calories))%>%
+  select(restaurant,avg_calories)%>%
+  ungroup()
+average_calories
+```
+
+## Data Visualisation containing total_fat per Restaurant
+```{r}
+
+```
+
+#### The Bar Graph is a perfect visualisation when comparing two variables. Due to it's 2D structure we can place each one of the variables on either of the axes. And it is more perfect for our current situation as one of the variable which is 'restaurant' is a categorical variable and the other 'total_fat' variable is a numerical variable. 
+```{r}
+ggplot(data=fastfood, aes(x=restaurant,y=total_fat))+ geom_bar(colour = "red",stat = "identity")
+```
+
+## Number of observations of total fat per restaurant
+```{r}
+max_total_fat<-fastfood%>%
+  group_by(restaurant)%>%
+  mutate(no_total_fat=max(total_fat))%>%
+  select(restaurant,no_total_fat)%>%
+  ungroup()
+max_total_fat
+```
+
+## Observations for McDonalds to plot sugar against protein with geom_point()
+```{r}
+Only_Maccas<-fastfood%>%
+  group_by(restaurant)%>%
+  filter(restaurant=="Mcdonalds")%>%
+  select(restaurant,sugar,protein)%>%
+  ungroup()
+p<-ggplot(Only_Maccas, aes(sugar,protein))
+p + geom_point(colour = "blue") + xlab("Sugar")+ ylab("Protein")+ggtitle("McDonalds")
+```
+

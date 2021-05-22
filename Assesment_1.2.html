@@ -545,44 +545,36 @@ skim(fastfood)</code></pre>
 <p>##Average number of calories per restaurant</p>
 <pre class="r"><code>fastfood%&gt;%
   group_by(restaurant)%&gt;%
-  mutate(avg_calories=mean(calories))%&gt;%
-  select(restaurant,avg_calories)%&gt;%
+  summarise(avg_calories=mean(calories))%&gt;%
   ungroup()</code></pre>
-<pre><code>## # A tibble: 515 x 2
-##    restaurant avg_calories
-##    &lt;chr&gt;             &lt;dbl&gt;
-##  1 Mcdonalds          640.
-##  2 Mcdonalds          640.
-##  3 Mcdonalds          640.
-##  4 Mcdonalds          640.
-##  5 Mcdonalds          640.
-##  6 Mcdonalds          640.
-##  7 Mcdonalds          640.
-##  8 Mcdonalds          640.
-##  9 Mcdonalds          640.
-## 10 Mcdonalds          640.
-## # … with 505 more rows</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   restaurant  avg_calories
+##   &lt;chr&gt;              &lt;dbl&gt;
+## 1 Arbys               533.
+## 2 Burger King         609.
+## 3 Chick Fil-A         384.
+## 4 Dairy Queen         520.
+## 5 Mcdonalds           640.
+## 6 Sonic               632.
+## 7 Subway              503.
+## 8 Taco Bell           444.</code></pre>
 <p>##Assigning a variable average_calories</p>
 <pre class="r"><code>average_calories&lt;-fastfood%&gt;%
   group_by(restaurant)%&gt;%
-  mutate(avg_calories=mean(calories))%&gt;%
-  select(restaurant,avg_calories)%&gt;%
+  summarise(avg_calories=mean(calories))%&gt;%
   ungroup()
 average_calories</code></pre>
-<pre><code>## # A tibble: 515 x 2
-##    restaurant avg_calories
-##    &lt;chr&gt;             &lt;dbl&gt;
-##  1 Mcdonalds          640.
-##  2 Mcdonalds          640.
-##  3 Mcdonalds          640.
-##  4 Mcdonalds          640.
-##  5 Mcdonalds          640.
-##  6 Mcdonalds          640.
-##  7 Mcdonalds          640.
-##  8 Mcdonalds          640.
-##  9 Mcdonalds          640.
-## 10 Mcdonalds          640.
-## # … with 505 more rows</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   restaurant  avg_calories
+##   &lt;chr&gt;              &lt;dbl&gt;
+## 1 Arbys               533.
+## 2 Burger King         609.
+## 3 Chick Fil-A         384.
+## 4 Dairy Queen         520.
+## 5 Mcdonalds           640.
+## 6 Sonic               632.
+## 7 Subway              503.
+## 8 Taco Bell           444.</code></pre>
 <div id="data-visualisation-containing-total_fat-per-restaurant" class="section level2">
 <h2>Data Visualisation containing total_fat per Restaurant</h2>
 <div id="the-bar-graph-is-a-perfect-visualisation-when-comparing-two-variables.-due-to-its-2d-structure-we-can-place-each-one-of-the-variables-on-either-of-the-axes.-and-it-is-more-perfect-for-our-current-situation-as-one-of-the-variable-which-is-restaurant-is-a-categorical-variable-and-the-other-total_fat-variable-is-a-numerical-variable." class="section level4">
@@ -595,24 +587,20 @@ average_calories</code></pre>
 <h2>Number of observations of total fat per restaurant</h2>
 <pre class="r"><code>max_total_fat&lt;-fastfood%&gt;%
   group_by(restaurant)%&gt;%
-  mutate(no_total_fat=max(total_fat))%&gt;%
-  select(restaurant,no_total_fat)%&gt;%
+  summarise(no_total_fat=max(total_fat))%&gt;%
   ungroup()
 max_total_fat</code></pre>
-<pre><code>## # A tibble: 515 x 2
-##    restaurant no_total_fat
-##    &lt;chr&gt;             &lt;dbl&gt;
-##  1 Mcdonalds           141
-##  2 Mcdonalds           141
-##  3 Mcdonalds           141
-##  4 Mcdonalds           141
-##  5 Mcdonalds           141
-##  6 Mcdonalds           141
-##  7 Mcdonalds           141
-##  8 Mcdonalds           141
-##  9 Mcdonalds           141
-## 10 Mcdonalds           141
-## # … with 505 more rows</code></pre>
+<pre><code>## # A tibble: 8 x 2
+##   restaurant  no_total_fat
+##   &lt;chr&gt;              &lt;dbl&gt;
+## 1 Arbys                 59
+## 2 Burger King          126
+## 3 Chick Fil-A           47
+## 4 Dairy Queen           75
+## 5 Mcdonalds            141
+## 6 Sonic                100
+## 7 Subway                62
+## 8 Taco Bell             42</code></pre>
 </div>
 <div id="observations-for-mcdonalds-to-plot-sugar-against-protein-with-geom_point" class="section level2">
 <h2>Observations for McDonalds to plot sugar against protein with geom_point()</h2>

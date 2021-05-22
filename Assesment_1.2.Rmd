@@ -34,8 +34,7 @@ fastfood%>%count(restaurant)
 ```{r}
 fastfood%>%
   group_by(restaurant)%>%
-  mutate(avg_calories=mean(calories))%>%
-  select(restaurant,avg_calories)%>%
+  summarise(avg_calories=mean(calories))%>%
   ungroup()
 ```
 
@@ -43,8 +42,7 @@ fastfood%>%
 ```{r}
 average_calories<-fastfood%>%
   group_by(restaurant)%>%
-  mutate(avg_calories=mean(calories))%>%
-  select(restaurant,avg_calories)%>%
+  summarise(avg_calories=mean(calories))%>%
   ungroup()
 average_calories
 ```
@@ -63,8 +61,7 @@ ggplot(data=fastfood, aes(x=restaurant,y=total_fat))+ geom_bar(colour = "red",st
 ```{r}
 max_total_fat<-fastfood%>%
   group_by(restaurant)%>%
-  mutate(no_total_fat=max(total_fat))%>%
-  select(restaurant,no_total_fat)%>%
+  summarise(no_total_fat=max(total_fat))%>%
   ungroup()
 max_total_fat
 ```

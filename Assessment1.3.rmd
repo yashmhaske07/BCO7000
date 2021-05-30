@@ -96,12 +96,11 @@ fastfood$trans_fat_percent <- trans_fat_percent
 # 8
 
 ```{r, echo=TRUE}
-install.packages("extrafont")
-#library(viridis)
-#library(hrbrthemes)
-#library(extrafont)
-#font_import()
-#loadfonts(device="win")
+library(viridis)
+library(hrbrthemes)
+library(extrafont)
+font_import()
+loadfonts(device="win")
 ```
 
 

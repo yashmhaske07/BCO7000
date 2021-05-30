@@ -1,0 +1,148 @@
+---
+title: "Assessment1.3"
+author: "Yash Mhaske S4614167"
+date: "29/05/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+
+# 1
+# Data viz and wrangling
+
+
+# 2
+
+```{r, echo=TRUE}
+library(tidyverse)
+library(ggplot2)
+library(skimr)
+
+fastfood <- read_csv("https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2018/2018-09-04/fastfood_calories.csv")
+
+head(fastfood)
+
+skim(fastfood)
+
+
+```
+##The three variables Restaurant, salad and item are categorical variables. So these three are eligible for turning into a factor variable. However,the salad variable has only one category that is 'other'. So even if we skip that variable it wont make any difference.The x1 variable is a serial variable and therefore summary statistics of x1 is not of any use and needs to be converted into a factor.
+
+
+
+# 3
+
+```{r, echo=TRUE}
+
+fastfood$X1 <- factor(fastfood$X1)
+fastfood$restaurant <- factor(fastfood$restaurant)
+fastfood$item <- factor(fastfood$item)
+fastfood$salad <- factor(fastfood$salad)
+skim(fastfood)
+
+
+
+```
+
+# 4
+
+
+```{r, echo=TRUE}
+
+ fastfood[is.na(fastfood)] <- 0
+
+
+
+```
+
+# 5
+
+```{r, echo=TRUE}
+fastfood$calories_type <- cut_interval(fastfood$calories,
+                                       n=3,
+                                labels=c("low", "med","high"),
+                              levels = c("low", "med","high"),
+                              ordered = TRUE
+                                )
+
+```
+
+# 6
+
+```{r, echo=TRUE}
+
+ggplot(fastfood, aes(x=calories_type, fill= calories_type))+
+         geom_bar( )+scale_fill_manual(values = c("chartreuse4","blue","red"))+
+         theme(legend.position = "none")+
+                     facet_wrap(~restaurant,ncol=4)
+
+```
+# 7
+
+
+```{r, echo=TRUE}
+
+trans_fat_percent <- round((fastfood$trans_fat/fastfood$total_fat)*100, 1)
+
+fastfood$trans_fat_percent <- trans_fat_percent
+
+
+```
+
+# 8
+
+```{r, echo=TRUE}
+install.packages("extrafont")
+#library(viridis)
+#library(hrbrthemes)
+#library(extrafont)
+#font_import()
+#loadfonts(device="win")
+```
+
+
+```{r, echo=TRUE}
+  fastfood %>%
+  
+  ggplot( aes(x=trans_fat_percent, color=restaurant, fill=restaurant)) +
+    geom_histogram(alpha=0.6, binwidth = .5) +
+    scale_fill_viridis(discrete=TRUE) +
+    scale_color_viridis(discrete=TRUE) +
+    theme_ipsum() +
+    theme(
+      legend.position="none",
+      panel.spacing = unit(0.1, "lines"),
+      strip.text.x = element_text(size = 8)
+    ) +
+    xlab("trans fat (%)") +
+    ylab("count") +
+    facet_wrap(~restaurant)
+```
+
+# 9
+
+``` {r, echo=TRUE}
+
+fastfood %>% group_by(restaurant) %>% summarize(
+  `mean total fat` = round(mean(total_fat),1))
+
+
+```
+# 11
+
+``` {r, echo=TRUE}
+
+viz <- fastfood %>% group_by(restaurant) %>% summarize(
+  `mean total fat` = round(mean(total_fat),1))
+library(RColorBrewer)
+coul <- brewer.pal(8, "Set2") 
+barplot(height=viz$`mean total fat`, names=viz$restaurant, col=coul, xlab="Restaurant", ylab="Mean total fat",
+        ylim = c(0,40), main="Bar chart of mean total fat per restaurant")
+
+
+
+```
